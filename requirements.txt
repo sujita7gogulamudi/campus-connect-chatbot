@@ -1,4 +1,4 @@
 Flask
-Flask-SQLAlchemy
+pandas
 fuzzywuzzy
 python-Levenshtein

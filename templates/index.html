@@ -2,67 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Campus Connect Chatbot</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Campus Connect</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-start pt-8">
+<body class="bg-gradient-to-b from-indigo-800 to-purple-600 min-h-screen flex flex-col items-center justify-center">
 
-  <!-- 🌐 Navigation -->
-  <nav class="bg-white w-full shadow p-4 flex justify-center space-x-6 text-indigo-700 font-semibold sticky top-0 z-50">
-    <a href="/" class="hover:underline">💬 Chat</a>
-    <a href="/dashboard" class="hover:underline">📢 Notifications</a>
-    <a href="/links" class="hover:underline">🔗 Quick Links</a>
-    <a href="/contact" class="hover:underline">📬 Contact</a>
-  </nav>
+  <marquee class="bg-white text-indigo-700 py-2 w-full font-bold text-lg">✨ Grace Institutions Welcomes You ✨</marquee>
 
-  <!-- 💬 Chat UI -->
-  <div class="glass-card rounded-3xl p-6 mt-12 w-[90%] max-w-md flex flex-col space-y-4 text-white">
-    <h1 class="text-3xl font-bold text-center glow">🎓 Campus Connect</h1>
-
-    <div id="chat-box" class="flex flex-col space-y-2 h-80 overflow-y-auto p-3 bg-white/10 rounded-lg text-sm"></div>
-
-    <form id="chat-form" class="flex space-x-2">
-      <input type="text" id="message" name="message"
-        class="flex-grow p-2 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        placeholder="Ask something..." required>
-      <button type="submit"
-        class="px-4 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition transform hover:scale-105">Send</button>
-    </form>
+  <div class="flex flex-col items-center justify-center space-y-6 mt-12">
+    <a href="/notifications">
+      <img src="{{ url_for('static', filename='icons/notification.png') }}" alt="Notifications" class="w-28 h-28 hover:scale-105 transition-all duration-300">
+    </a>
+    <a href="/chat">
+      <img src="{{ url_for('static', filename='icons/chat.png') }}" alt="Chat With Us" class="w-28 h-28 hover:scale-105 transition-all duration-300">
+    </a>
+    <a href="/contact">
+      <img src="{{ url_for('static', filename='icons/contact.png') }}" alt="Contact Us" class="w-28 h-28 hover:scale-105 transition-all duration-300">
+    </a>
   </div>
 
-  <!-- ✨ Script -->
-  <script>
-    const chatBox = document.getElementById('chat-box');
-    const form = document.getElementById('chat-form');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const messageInput = document.getElementById('message');
-      const message = messageInput.value;
-
-      const userBubble = document.createElement('div');
-      userBubble.className = 'chat-bubble-user self-end';
-      userBubble.innerText = `You: ${message}`;
-      chatBox.appendChild(userBubble);
-
-      messageInput.value = '';
-
-      const res = await fetch('/ask', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `message=${encodeURIComponent(message)}`
-      });
-
-      const data = await res.json();
-
-      const botBubble = document.createElement('div');
-      botBubble.className = 'chat-bubble-bot self-start';
-      botBubble.innerText = `Bot: ${data.reply}`;
-      chatBox.appendChild(botBubble);
-
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
-  </script>
 </body>
 </html>
